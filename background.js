@@ -1,12 +1,7 @@
 const DEFAULTS = { enabled: true, space: 2 };
 
-const getSettings = async () => ({
-    ...DEFAULTS,
-    ...(await chrome.storage.sync.get(Object.keys(DEFAULTS))),
-});
-
 const buildMenu = async () => {
-    const settings = await getSettings();
+    const settings = await chrome.storage.sync.get(DEFAULTS);
     await chrome.contextMenus.removeAll();
 
     const parent = chrome.contextMenus.create({
@@ -71,7 +66,7 @@ chrome.storage.onChanged.addListener(changes => {
 });
 
 chrome.contextMenus.onClicked.addListener(async info => {
-    const settings = await getSettings();
+    const settings = await chrome.storage.sync.get(DEFAULTS);
 
     switch (info.menuItemId) {
         case "json-fmt.enabled":

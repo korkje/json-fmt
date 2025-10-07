@@ -1,10 +1,5 @@
 const DEFAULTS = { enabled: true, space: 2 };
 
-const getSettings = async () => ({
-    ...DEFAULTS,
-    ...(await chrome.storage.sync.get(Object.keys(DEFAULTS))),
-});
-
 class JsonFmtError extends Error {
     constructor(message, options) {
         super(message, options);
@@ -34,9 +29,7 @@ if (
         throw new JsonFmtError(error);
     }
 
-    (async () => {
-        const settings = await getSettings();
-
+    chrome.storage.sync.get(DEFAULTS).then(settings => {
         const unformatted = pre.textContent;
         const formatted = JSON.stringify(parsed, null, settings.space);
 
@@ -60,5 +53,5 @@ if (
                 isFormatted = !isFormatted;
             }
         });
-    })();
+    });
 }
