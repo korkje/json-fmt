@@ -47,8 +47,15 @@ if (
             isFormatted = true;
         }
 
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "f") {
+        document.addEventListener("keydown", event => {
+            if (
+                event.key === "f"
+                && !event.shiftKey
+                && !event.ctrlKey
+                && !event.altKey
+                && !event.metaKey
+                && !event.repeat
+            ) {
                 pre.textContent = isFormatted ? unformatted : formatted;
                 isFormatted = !isFormatted;
             }
