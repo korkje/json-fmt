@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "json-fmt",
-    "description": "Safari extension that formats JSON",
+    "description": "Safari/Chrome extension that formats JSON",
     "version": "0.1.0",
     "icons": { "16": "icon.svg", "48": "icon.svg", "128": "icon.svg" },
     "content_scripts": [{
