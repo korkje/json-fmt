@@ -28,8 +28,8 @@ const buildMenu = async () => {
 
     chrome.contextMenus.create({
         parentId: parent,
-        id: "json-fmt.space.2",
-        title: `2 spaces`,
+        id: "json-fmt.2-spaces",
+        title: "2 spaces",
         type: "radio",
         checked: settings.space === 2,
         contexts: ["all"],
@@ -37,8 +37,8 @@ const buildMenu = async () => {
 
     chrome.contextMenus.create({
         parentId: parent,
-        id: "json-fmt.space.4",
-        title: `4 spaces`,
+        id: "json-fmt.4-spaces",
+        title: "4 spaces",
         type: "radio",
         checked: settings.space === 4,
         contexts: ["all"],
@@ -46,8 +46,8 @@ const buildMenu = async () => {
 
     chrome.contextMenus.create({
         parentId: parent,
-        id: "json-fmt.space.tab",
-        title: `Tabs`,
+        id: "json-fmt.tabs",
+        title: "Tabs",
         type: "radio",
         checked: settings.space === "\t",
         contexts: ["all"],
@@ -63,22 +63,21 @@ chrome.storage.onChanged.addListener(changes => {
 });
 
 chrome.contextMenus.onClicked.addListener(async info => {
-    const settings = await chrome.storage.sync.get(DEFAULTS);
-
     switch (info.menuItemId) {
         case "json-fmt.enabled":
+            const settings = await chrome.storage.sync.get(DEFAULTS);
             await chrome.storage.sync.set({ enabled: !settings.enabled });
             break;
 
-        case "json-fmt.space.2":
+        case "json-fmt.2-spaces":
             await chrome.storage.sync.set({ space: 2 });
             break;
 
-        case "json-fmt.space.4":
+        case "json-fmt.4-spaces":
             await chrome.storage.sync.set({ space: 4 });
             break;
 
-        case "json-fmt.space.tab":
+        case "json-fmt.tabs":
             await chrome.storage.sync.set({ space: "\t" });
             break;
     }
