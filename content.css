@@ -1,0 +1,9 @@
+/* Hide Chrome's built-in JSON formatter */
+.json-formatter-container {
+    display: none;
+}
+
+/* ...and remove padding from the pre element */
+pre:has(~ .json-formatter-container) {
+    padding-top: 0;
+}
