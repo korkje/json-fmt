@@ -32,7 +32,6 @@ const buildMenu = async () => {
         title: `2 spaces`,
         type: "radio",
         checked: settings.space === 2,
-        value: "2",
         contexts: ["all"],
     });
 
@@ -42,7 +41,6 @@ const buildMenu = async () => {
         title: `4 spaces`,
         type: "radio",
         checked: settings.space === 4,
-        value: "4",
         contexts: ["all"],
     });
 
@@ -52,7 +50,6 @@ const buildMenu = async () => {
         title: `Tabs`,
         type: "radio",
         checked: settings.space === "\t",
-        value: "\t",
         contexts: ["all"],
     });
 };
