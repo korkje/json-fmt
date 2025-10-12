@@ -1,6 +1,6 @@
 # json-fmt
 
-Safari extension that formats JSON.
+Safari/Chrome extension that formats JSON.
 
 Formats on load using 2 space indentation, change using the context menu.
 
