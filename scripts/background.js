@@ -55,6 +55,7 @@ const buildMenu = async () => {
 };
 
 chrome.runtime.onInstalled.addListener(buildMenu);
+chrome.runtime.onStartup.addListener(buildMenu);
 
 chrome.storage.onChanged.addListener(changes => {
     if (Object.keys(changes).some(key => key in DEFAULTS)) {
