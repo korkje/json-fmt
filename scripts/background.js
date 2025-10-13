@@ -1,7 +1,8 @@
 const DEFAULTS = { enabled: true, space: 2 };
+const AREA = "local";
 
 const buildMenu = async () => {
-    const settings = await chrome.storage.sync.get(DEFAULTS);
+    const { enabled, space } = await chrome.storage[AREA].get(DEFAULTS);
     await chrome.contextMenus.removeAll();
 
     const parent = chrome.contextMenus.create({
@@ -15,7 +16,7 @@ const buildMenu = async () => {
         id: "json-fmt.enabled",
         title: "Format on load",
         type: "checkbox",
-        checked: settings.enabled,
+        checked: enabled,
         contexts: ["all"],
     });
 
@@ -31,7 +32,7 @@ const buildMenu = async () => {
         id: "json-fmt.2-spaces",
         title: "2 spaces",
         type: "radio",
-        checked: settings.space === 2,
+        checked: space === 2,
         contexts: ["all"],
     });
 
@@ -40,7 +41,7 @@ const buildMenu = async () => {
         id: "json-fmt.4-spaces",
         title: "4 spaces",
         type: "radio",
-        checked: settings.space === 4,
+        checked: space === 4,
         contexts: ["all"],
     });
 
@@ -49,7 +50,7 @@ const buildMenu = async () => {
         id: "json-fmt.tabs",
         title: "Tabs",
         type: "radio",
-        checked: settings.space === "\t",
+        checked: space === "\t",
         contexts: ["all"],
     });
 };
@@ -66,20 +67,20 @@ chrome.storage.onChanged.addListener(changes => {
 chrome.contextMenus.onClicked.addListener(async info => {
     switch (info.menuItemId) {
         case "json-fmt.enabled":
-            const settings = await chrome.storage.sync.get(DEFAULTS);
-            await chrome.storage.sync.set({ enabled: !settings.enabled });
+            const { enabled } = await chrome.storage[AREA].get(DEFAULTS);
+            await chrome.storage[AREA].set({ enabled: !enabled });
             break;
 
         case "json-fmt.2-spaces":
-            await chrome.storage.sync.set({ space: 2 });
+            await chrome.storage[AREA].set({ space: 2 });
             break;
 
         case "json-fmt.4-spaces":
-            await chrome.storage.sync.set({ space: 4 });
+            await chrome.storage[AREA].set({ space: 4 });
             break;
 
         case "json-fmt.tabs":
-            await chrome.storage.sync.set({ space: "\t" });
+            await chrome.storage[AREA].set({ space: "\t" });
             break;
     }
 });

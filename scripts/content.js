@@ -1,4 +1,5 @@
 const DEFAULTS = { enabled: true, space: 2 };
+const AREA = "local";
 
 class JsonFmtError extends Error {
     constructor(message, options) {
@@ -29,13 +30,13 @@ if (
         throw new JsonFmtError(error);
     }
 
-    chrome.storage.sync.get(DEFAULTS).then(settings => {
+    chrome.storage[AREA].get(DEFAULTS).then(({ enabled, space }) => {
         const unformatted = pre.textContent;
-        const formatted = JSON.stringify(parsed, null, settings.space);
+        const formatted = JSON.stringify(parsed, null, space);
 
         let isFormatted = false;
 
-        if (settings.enabled) {
+        if (enabled) {
             pre.textContent = formatted;
             isFormatted = true;
         }
